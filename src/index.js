@@ -1,4 +1,5 @@
 module.exports = function check(str, bracketsConfig) {
+
 	const openBrackets = ['(', '[', '{', '|']
 	const bracketsPair = {
 		')': '(',
@@ -11,9 +12,16 @@ module.exports = function check(str, bracketsConfig) {
 	for (let i = 0; i < check.arguments[0].length; i++) {
 
 		let currentSymbol = check.arguments[0][i]
-		
-		if (openBrackets.includes(currentSymbol)) {
-			stack.push(currentSymbol)			
+		console.log(currentSymbol);
+
+		if (currentSymbol === '|' && stack.includes(currentSymbol)) {
+			stack.pop()
+			console.log(stack);
+		}
+
+		else if (openBrackets.includes(currentSymbol)) {
+			stack.push(currentSymbol)
+			console.log(stack);
 
 		} else {
 			if (stack.length === 0) {
@@ -24,12 +32,12 @@ module.exports = function check(str, bracketsConfig) {
 
 			if (bracketsPair[currentSymbol] === lastElem) {
 				stack.pop()
+				console.log(stack);
 			} else {
 				return false
 			}
 		}
 	}
-	if (stack.length === 0) {return true}
-	if (stack.length !== 0 && stack[0] === stack[1]) {return true}
-	else {return false}
+	console.log(stack);
+	return stack.length === 0
 }
